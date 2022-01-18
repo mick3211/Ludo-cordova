@@ -1,0 +1,345 @@
+:root {
+    --yellow: rgb(255, 255, 0);
+    --green: rgb(73, 206, 73);
+    --blue: rgb(0, 0, 255);
+    --red: rgb(255, 0, 0);
+    --background-primary: rgb(255, 255, 255);
+    --background-secondary: rgb(61, 61, 61);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.grid {
+    display: grid;
+}
+
+body {
+    background-color: var(--background-primary);
+    height: 100vh;
+    padding: 10px;
+}
+
+.container {
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-tab {
+    width: 100vw;
+    height: 100vw;
+    max-width: 800px;
+    max-height: 800px;
+    align-self: center;
+}
+
+.tabuleiro {
+    height: 100%;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-rows: 2fr 1fr 2fr;
+    /*gap: 1px;
+    border: 1px solid var(--background-secondary);*/
+    border-radius: 5%;
+    overflow: hidden;
+    background-color: var(--background-secondary);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.cell-container-v {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 1px;
+    background-color: var(--background-secondary);
+}
+
+.cell-container-h {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1px;
+    background-color: var(--background-secondary);
+}
+
+.cell {
+    background-color: var(--background-primary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.safe > i {
+    color: rgb(185, 185, 185);
+    font-size: x-large;
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.piece {
+    width: 90%;
+    height: 90%;
+    max-width: 52px;
+    max-height: 52px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transition: transform 0.2s;
+}
+
+.valid {
+    border: 3px solid magenta;
+    z-index: 100;
+}
+
+.piece:hover {
+    cursor: pointer;
+}
+
+.piece::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--background-secondary);
+    content: '\f521';
+}
+
+.locker {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.locker > div {
+    width: 80%;
+    height: 80%;
+    background-color: var(--background-primary);
+    border-radius: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+}
+
+.piece-start {
+    width: 40%;
+    height: 40%;
+    border-radius: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#final {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#final > .meio {
+    width: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    border-top: calc(100vw / 10) solid var(--yellow);
+    border-bottom: calc(100vw / 10) solid var(--red);
+    border-left: calc(100vw / 10) solid var(--green);
+    border-right: calc(100vw / 10) solid var(--blue);
+}
+
+.player-container {
+    width: 100%;
+    background-color: #2948ff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+    max-width: 300px;
+    height: 100px;
+    text-align: center;
+}
+
+.player-card:hover {
+    cursor: pointer;
+}
+
+.player-card::before {
+    font-family: 'Font Awesome 5 Free';
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--background-secondary);
+    content: '\f234';
+}
+
+input {
+    background-color: white;
+    color: black;
+}
+
+.player-card input {
+    width: 90%;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+}
+
+.player-card button {
+    width: 50%;
+    margin: 10px 0 0;
+}
+
+.player-card.green {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.player-card.yellow {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.player-card.blue {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.player-card.red {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#start {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+}
+
+.dice {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    transform: translate(-50%, -50%) !important;
+}
+
+.dice:hover {
+    cursor: pointer;
+}
+
+.selected {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+        rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+@media screen and (min-width: 830px) {
+    #final > .meio {
+        border-top: 79.6px solid var(--yellow);
+        border-bottom: 79.6px solid var(--red);
+        border-left: 79.6px solid var(--green);
+        border-right: 79.6px solid var(--blue);
+    }
+}
+
+@media screen and (max-width: 830px) {
+    body {
+        background: #396afc;
+        background: -webkit-linear-gradient(to right, #2948ff, #396afc);
+        background: linear-gradient(to right, #2948ff, #396afc);
+        padding-top: 40px;
+    }
+
+    .piece::before {
+        font-size: 50%;
+    }
+
+    .safe > i {
+        font-size: small;
+    }
+}
+
+.green {
+    background-color: var(--green);
+}
+
+.blue {
+    background-color: var(--blue);
+}
+
+.red {
+    background-color: var(--red);
+}
+
+.yellow {
+    background-color: var(--yellow);
+}
+
+.safe {
+    background-color: lightgrey;
+}
+
+.no-before::before {
+    content: none;
+}
+
+/* ----------------------------------------------
+ * Generated by Animista on 2022-1-16 18:43:48
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+.rotate-hor-center {
+    -webkit-animation: rotate-hor-center 0.65s ease-in-out both;
+    animation: rotate-hor-center 0.65s ease-in-out both;
+}
+
+@keyframes rotate-hor-center {
+    0% {
+        -webkit-transform: translate(-50%, -50%) rotateX(0) scale(3);
+        transform: translate(-50%, -50%) rotateX(0) scale(3);
+    }
+    100% {
+        -webkit-transform: translate(-50%, -50%) rotateX(-720deg) scale(1);
+        transform: translate(-50%, -50%) rotateX(-720deg) scale(1);
+    }
+}
